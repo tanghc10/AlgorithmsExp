@@ -1,5 +1,7 @@
 #include<iostream>
 #include<algorithm>
+#include<fstream>
+#include<cstdlib>
 using namespace std;
 
 typedef struct _Stick
@@ -16,17 +18,18 @@ bool cmp(const my_Stick &a, const my_Stick &b){
 
 int main(){
 	/*测试样例组数*/
-	my_Stick s[5005];
-	int flag[5005];
+	my_Stick s[5001];
+	int flag[5001];
 	int t = 0, i = 0, j = 0, cnt = 1, min = 0;
-	cin>>t;
+	ifstream in("in.dat");
+	in>>t;
 	while(t--){
 		int n = 0; /*木棍个数*/
-		cin>>n;
+		in>>n;
 		i = 0;
 		/*读入木棍数据信息*/
 		while(i < n){
-			cin>>s[i].length>>s[i].weight;
+			in>>s[i].length>>s[i].weight;
 			flag[i] = 0;
 			i++;
 		}
@@ -47,5 +50,6 @@ int main(){
 		}
         cout<<cnt<<endl;
 	}
+	system("pause");
 	return 0;
 }

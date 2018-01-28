@@ -28,6 +28,7 @@ int main(){
 		return -1;
 	}
 	in>>t;
+	cout<<t;
 	while(t--){
 		in>>n;
 		for(i = 0; i < n; i++){
@@ -35,13 +36,13 @@ int main(){
 			p.push_back(vector<int>(n, 0));
 			for (j = 0; j < n; j++){
 				in>>temp;
-				if (temp == 100){
+				if (temp == 100)
 					temp = MAX;
-				}
 				d[i][j] = temp;
 				p[i][j] = j;
 			}
 		}
+		
 		for(temp = 0; temp < n; temp++){
 			for(i = 0; i < n; i++){
 				for(j = 0; j < n; j++){

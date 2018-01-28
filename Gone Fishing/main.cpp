@@ -1,13 +1,15 @@
 #include<iostream>
+#include<fstream>
+#include<cstdlib>
 
 using namespace std;
 
 int main(int argc, char const *argv[])
 {
-	int c = 0;
+	int c = 0;	//用来控制输出格式
 	int n = 0;	//鱼塘个数
 	int h = 0;	//钓鱼时间
-	int h_temp = 0;
+	int h_temp = 0;	//枚举过程中使用的钓鱼时间
 	int ti[200];	//ti[i]表示从第i个湖去第i+1个湖所需要的时间
 	int fi_temp[200];   //鱼塘鱼量
 	int fi[200];	//fi[i]表示第i个湖的初始鱼的数量
@@ -17,8 +19,13 @@ int main(int argc, char const *argv[])
 	int i = 0;
 	int num_max = 0;	//总共的最大钓鱼数
 	int num_temp = 0;	//中间某次钓鱼选择的钓鱼数
-	int fishIndex = 0;	//选择的鱼塘下标
+	int fishIndex = 0;	//本次钓鱼过程选择钓鱼的鱼塘下标
 	int endIndex = 0;	//结束钓鱼时所在的鱼塘下标
+	ifstream in("in.dat");
+	if (!in.is_open()){
+		cout<<"fail to open file : in.dat"<<endl;
+		return -1;
+	}
 	while(i < 200){
 		ti[i] = 0;
 		fi[i] = 0;
@@ -43,21 +50,19 @@ int main(int argc, char const *argv[])
 		num_max = -1;
 		while(endIndex < n){
             num_temp = 0;   //本次计算的钓鱼数请0
-		    i = 0;
 		    h_temp = h;     //钓鱼总时间重置
-            while(i < n){   //存储在每个鱼塘钓鱼的时间的数组清零，鱼塘鱼的数量重置
+            for (i = 0; i < n; i++){   //存储在每个鱼塘钓鱼的时间的数组清零，鱼塘鱼的数量重置
                 temp[i] = 0;
-                fi_temp[i] = fi[i++];
+                fi_temp[i] = fi[i];
             }
             i = 0;
 			while(i < endIndex)	h_temp -= ti[i++];	//先减去在路上花费的时间
 			while(h_temp > 0){
 				fishIndex = 0;
-				i = 0;
-				while(i <= endIndex){	//选择一个鱼的数量最多的鱼塘
+
+				for(i = 0; i <= endIndex; i++)	//选择一个鱼的数量最多的鱼塘
 					if (fi_temp[i] > fi_temp[fishIndex])	fishIndex = i;
-					i++;
-				}
+
 				if (fi_temp[fishIndex] == 0){	//所有鱼塘都为空，把剩下的时间加到第一个鱼塘中，退出本次的计算
                     //cout<<"lake empty h = "<<h_temp<<endl;
 					temp[0] += h_temp * 5;
@@ -85,5 +90,6 @@ int main(int argc, char const *argv[])
 		cout<<endl;
 		cout<<"Number of fish expected: "<<num_max<<endl;
 	}
+	system("pause");
 	return 0;
 }

@@ -281,10 +281,9 @@ string IntMult(string x, string y)//递归函数
 	{
 		if (x.size() >= y.size()) //第一个数长度大于等于第二个数长度的情况
 		{
-			while (x.size()>f) //判断f值
-			{
+			//将第二个数据的长度变成2的n次方
+			while (x.size()>f)
 				f *= 2;
-			}
 			if (x.size() != f)
 			{
 				x = stringBeforeZero(x, f - x.size());
@@ -293,10 +292,9 @@ string IntMult(string x, string y)//递归函数
 		}
 		else//第二个数长度大于第一个数长度的情况
 		{
-			while (y.size()>f) //判断f值
-			{
+			//将第二个数据的长度变成2的n次方
+			while (y.size()>f)
 				f *= 2;
-			}
 			if (y.size() != f)
 			{
 				x = stringBeforeZero(x, f - x.size());
@@ -304,23 +302,20 @@ string IntMult(string x, string y)//递归函数
 			}
 		}
 	}
-	if (1 == x.size()) //数据长度为1时,在前面补一个0(这里之所以会出现长度为1的数据是因为前面对数据修剪过)
-	{
+
+	//数据长度为1时,在前面补一个0(这里之所以会出现长度为1的数据是因为前面对数据修剪过)
+	if (1 == x.size())
 		x = stringBeforeZero(x, 1);
-	}
-	if (1 == y.size()) //数据长度为1时,在前面补一个0(这里之所以会出现长度为1的数据是因为前面对数据修剪过)
-	{
+	if (1 == y.size())
 		y = stringBeforeZero(y, 1);
-	}
-	if (x.size() > y.size()) //最后一次对数据校正，确保两个数据长度统一
-	{
+
+	//最后一次对数据校正，确保两个数据长度统一
+	if (x.size() > y.size())
 		y = stringBeforeZero(y, x.size() - y.size());
-	}
-	if (x.size() < y.size()) //最后一次对数据校正，确保两个数据长度统一
-	{
+	if (x.size() < y.size())
 		x = stringBeforeZero(x, y.size() - x.size());
-	}
-	int s = x.size();
+
+	int s = x.size();	//两个数据的长度
 	string a1, a0, b1, b0;
 	if (s > 1)
 	{
@@ -339,9 +334,8 @@ string IntMult(string x, string y)//递归函数
 		result = num_to_string((na * 10 + nb) * (nc * 10 + nd));
 	}
 	else
-	{ //长度不为2时利用分治法进行递归运算
+	{ //大于不为2时利用分治法进行递归运算
 	  /***************************************************
-	  小提示:
 	  c = a*b = c2*(10^n) + c1*(10^(n/2)) + c0;
 	  a = a1a0 = a1*(10^(n/2)) + a0;
 	  b = b1b0 = b1*(10^(n/2)) + b0;
@@ -399,7 +393,7 @@ int main()
 		}
 		switch(op){
 			case 1:
-				r = IntAdd(num1, num2);
+			    r = IntAdd(num1, num2);
 				break;
 			case 2:
 				r = IntSub(num1, num2);

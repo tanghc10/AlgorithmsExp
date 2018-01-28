@@ -1,4 +1,6 @@
 #include <iostream>
+#include <fstream>
+#include <cstdlib>
 
 using namespace std;
 
@@ -29,12 +31,13 @@ bool valid(int state, int r){
 int main(){
 	int i = 0, j = 0, x = 0, y = 0;
 	int res = 0;
-	while(cin>>n>>m){
+	ifstream in("in.dat");
+	while(in>>n>>m){
 		res = 0;
 		for(i = 0; i < n; i++){
 			map[i] = 0;
 			for(j = 0; j < m; j++){
-				cin>>x;
+				in>>x;
 				if (x)
 					map[i] += (1<<(m - j - 1));
 			}
@@ -47,7 +50,7 @@ int main(){
 		}
 		for(i = 1; i < n; i++){
 			for (j = 0; j < size; j++){
-				if (valid(v[j], i) == true){	//第x个可行的状态不与i中的土地冲突
+				if (valid(v[j], i)){	//第x个可行的状态不与i中的土地冲突
 					for (x = 0; x < size; x++){
 						if (valid(v[x], i - 1) && !(v[x] & v[j])){
 							dp[i][j] = (dp[i][j] + dp[i-1][x]) % mod;
@@ -60,5 +63,6 @@ int main(){
 			res = (res + dp[n - 1][i]) % mod;
 		cout<<res<<endl;
 	}
+	system("pause");
 	return 0;
 }
